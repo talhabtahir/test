@@ -15,37 +15,35 @@ a[href*="github.com"] {
 }
 </style>
 """
-# import streamlit as st
+import streamlit as st
 
-# Custom CSS and JavaScript to hide specific elements
-hide_specific_elements_script = """
+# CSS to hide specific GitHub elements using more specific selectors
+hide_github_links_style = """
 <style>
-/* Keep the Streamlit main menu visible */
-#MainMenu {visibility: visible;}
+/* Make sure the Streamlit menu remains visible */
+#MainMenu { visibility: visible !important; }
+
+/* Hide the GitHub repository link */
+a[href*="github.com"]:not(#MainMenu a) {
+    display: none !important; /* Hide any link containing 'github.com' */
+}
+
+/* Hide the fork link */
+a[aria-label="Fork"] {
+    display: none !important; /* Hide any link with aria-label 'Fork' */
+}
+
+/* You can also try hiding the parent container if the above fails */
+/* Replace 'header div' with specific parent element selectors */
+header div[data-testid="stHeader"] {
+    display: none !important; /* This would hide the entire header if needed */
+}
 </style>
-
-<script>
-// Wait for the page to fully load before hiding the elements
-document.addEventListener('DOMContentLoaded', function() {
-    // Hide GitHub repo link based on its unique identifier or class
-    var githubLinks = document.querySelectorAll('a[href*="github.com"]');
-    githubLinks.forEach(function(link) {
-        if (link.href.includes('github.com')) {
-            link.style.display = 'none';
-        }
-    });
-
-    // Hide the fork link (if it has a specific class or identifier)
-    var forkLinks = document.querySelectorAll('[aria-label="Fork"]'); // Replace with actual selector if different
-    forkLinks.forEach(function(link) {
-        link.style.display = 'none';
-    });
-});
-</script>
 """
 
-# Inject the custom CSS and JavaScript into the Streamlit app
-st.markdown(hide_specific_elements_script, unsafe_allow_html=True)
+# # Inject the custom CSS into the Streamlit app
+# st.markdown(hide_github_links_style, unsafe_allow_html=True)
+
 
 
 # Inject the custom CSS
