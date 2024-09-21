@@ -2,7 +2,7 @@ import streamlit as st
 
 # Add a mock GitHub link for testing
 st.write("This is a test app.")
-st.markdown('[Mock GitHub Link](https://github.com/mock-repo)', unsafe_allow_html=True)
+st.markdown('[Mock GitHub Link](https://github.com/talhabtahir/test/blob/main/testapp.py)', unsafe_allow_html=True)
 
 # Add the footer
 st.write("This is the footer.")
