@@ -17,33 +17,36 @@ a[href*="github.com"] {
 """
 # import streamlit as st
 
-# Custom CSS to hide only GitHub repo and fork links, but keep the main menu visible
-hide_github_links_style = """
+# Custom CSS and JavaScript to hide specific elements
+hide_specific_elements_script = """
 <style>
 /* Keep the Streamlit main menu visible */
 #MainMenu {visibility: visible;}
-
-/* Target specific GitHub and fork links using attributes */
-/* Hide the GitHub repo link */
-a[href*="github.com"] { 
-    display: none !important; 
-}
-
-/* Hide the fork link if it has a unique class or identifier */
-/* Example: */
-.stApp .css-1q1n0ol a[aria-label="View source"] { 
-    display: none !important; 
-}
-
-/* This selector targets any 'iframe' with 'github.com' in its src attribute */
-iframe[src*="github.com"] {
-    display: none !important;
-}
 </style>
+
+<script>
+// Wait for the page to fully load before hiding the elements
+document.addEventListener('DOMContentLoaded', function() {
+    // Hide GitHub repo link based on its unique identifier or class
+    var githubLinks = document.querySelectorAll('a[href*="github.com"]');
+    githubLinks.forEach(function(link) {
+        if (link.href.includes('github.com')) {
+            link.style.display = 'none';
+        }
+    });
+
+    // Hide the fork link (if it has a specific class or identifier)
+    var forkLinks = document.querySelectorAll('[aria-label="Fork"]'); // Replace with actual selector if different
+    forkLinks.forEach(function(link) {
+        link.style.display = 'none';
+    });
+});
+</script>
 """
 
-# # Inject the custom CSS into the Streamlit app
-# st.markdown(hide_github_links_style, unsafe_allow_html=True)
+# Inject the custom CSS and JavaScript into the Streamlit app
+st.markdown(hide_specific_elements_script, unsafe_allow_html=True)
+
 
 # Inject the custom CSS
 st.markdown(hide_github_links_style, unsafe_allow_html=True)
